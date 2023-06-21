@@ -17,6 +17,10 @@
 		D311A9F42A4372C600F36FF2 /* BillInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D311A9F32A4372C600F36FF2 /* BillInputView.swift */; };
 		D311A9F62A4372EB00F36FF2 /* SplitInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D311A9F52A4372EB00F36FF2 /* SplitInputView.swift */; };
 		D311A9F82A43730E00F36FF2 /* TipInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D311A9F72A43730E00F36FF2 /* TipInputView.swift */; };
+		D311A9FB2A4376E000F36FF2 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D311A9FA2A4376E000F36FF2 /* ThemeColor.swift */; };
+		D311A9FD2A4376F000F36FF2 /* ThemeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = D311A9FC2A4376F000F36FF2 /* ThemeFont.swift */; };
+		D311AA002A43774300F36FF2 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D311A9FF2A43774300F36FF2 /* UIColor+Extension.swift */; };
+		D311AA032A437C1B00F36FF2 /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D311AA022A437C1B00F36FF2 /* LabelFactory.swift */; };
 		D3E17B202A43530F007ED69B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E17B1F2A43530F007ED69B /* AppDelegate.swift */; };
 		D3E17B222A43530F007ED69B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E17B212A43530F007ED69B /* SceneDelegate.swift */; };
 		D3E17B242A43530F007ED69B /* CalculatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E17B232A43530F007ED69B /* CalculatorVC.swift */; };
@@ -50,6 +54,10 @@
 		D311A9F32A4372C600F36FF2 /* BillInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillInputView.swift; sourceTree = "<group>"; };
 		D311A9F52A4372EB00F36FF2 /* SplitInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitInputView.swift; sourceTree = "<group>"; };
 		D311A9F72A43730E00F36FF2 /* TipInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipInputView.swift; sourceTree = "<group>"; };
+		D311A9FA2A4376E000F36FF2 /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
+		D311A9FC2A4376F000F36FF2 /* ThemeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeFont.swift; sourceTree = "<group>"; };
+		D311A9FF2A43774300F36FF2 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		D311AA022A437C1B00F36FF2 /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		D3E17B1C2A43530F007ED69B /* tip-calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tip-calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E17B1F2A43530F007ED69B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3E17B212A43530F007ED69B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +121,31 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		D311A9F92A4376CB00F36FF2 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				D311A9FA2A4376E000F36FF2 /* ThemeColor.swift */,
+				D311A9FC2A4376F000F36FF2 /* ThemeFont.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		D311A9FE2A43771F00F36FF2 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D311A9FF2A43774300F36FF2 /* UIColor+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		D311AA012A437C0700F36FF2 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				D311AA022A437C1B00F36FF2 /* LabelFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
 		D3E17B132A43530F007ED69B = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +170,9 @@
 		D3E17B1E2A43530F007ED69B /* tip-calculator */ = {
 			isa = PBXGroup;
 			children = (
+				D311AA012A437C0700F36FF2 /* Factory */,
+				D311A9FE2A43771F00F36FF2 /* Extension */,
+				D311A9F92A4376CB00F36FF2 /* Config */,
 				D311A9EE2A43719D00F36FF2 /* View */,
 				D3E17B1F2A43530F007ED69B /* AppDelegate.swift */,
 				D3E17B212A43530F007ED69B /* SceneDelegate.swift */,
@@ -313,10 +349,14 @@
 			files = (
 				D3E17B242A43530F007ED69B /* CalculatorVC.swift in Sources */,
 				D311A9F02A4371AE00F36FF2 /* LogoView.swift in Sources */,
+				D311A9FB2A4376E000F36FF2 /* ThemeColor.swift in Sources */,
+				D311AA002A43774300F36FF2 /* UIColor+Extension.swift in Sources */,
 				D311A9F42A4372C600F36FF2 /* BillInputView.swift in Sources */,
 				D311A9F62A4372EB00F36FF2 /* SplitInputView.swift in Sources */,
 				D311A9F22A4372A800F36FF2 /* ResultView.swift in Sources */,
+				D311A9FD2A4376F000F36FF2 /* ThemeFont.swift in Sources */,
 				D311A9F82A43730E00F36FF2 /* TipInputView.swift in Sources */,
+				D311AA032A437C1B00F36FF2 /* LabelFactory.swift in Sources */,
 				D3E17B202A43530F007ED69B /* AppDelegate.swift in Sources */,
 				D3E17B222A43530F007ED69B /* SceneDelegate.swift in Sources */,
 			);
