@@ -10,7 +10,7 @@ import UIKit
 class BillInputView: UIView {
     
     private let headerView: HeaderView = {
-        return HeaderView()
+        return HeaderView(topText: "Enter", bottomText: "your bill")
     }()
     
     private let textFieldContainerView: UIView = {
@@ -93,6 +93,13 @@ class BillInputView: UIView {
             make.leading.equalTo(currencyDenominationLabel.snp.trailing).offset(16)
             make.trailing.equalTo(textFieldContainerView.snp.trailing).offset(-16)
         }
+        
+        textFieldContainerView.addShadow(
+            offset: CGSize(width: 0, height: 3),
+            color: .black,
+            radius: 12.0,
+            opacity: 0.1
+        )
     }
     
     required init?(coder: NSCoder) {
@@ -101,23 +108,6 @@ class BillInputView: UIView {
     
     @objc private func doneButtonTapped() {
         textField.endEditing(true)
-    }
-    
-}
-
-class HeaderView: UIView {
-    
-    init() {
-        super.init(frame: .zero)
-        layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func layout() {
-        backgroundColor = .red
     }
     
 }
