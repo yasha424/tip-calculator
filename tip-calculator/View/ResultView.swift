@@ -21,7 +21,7 @@ class ResultView: UIView {
             string: "$0",
             attributes: [
                 .font: ThemeFont.bold(ofSize: 48),
-                .foregroundColor: UIColor.white
+                .foregroundColor: ThemeColor.text
             ]
         )
         text.addAttributes(
@@ -79,7 +79,10 @@ class ResultView: UIView {
     func configure(result: Result) {
         let text = NSMutableAttributedString(
             string: result.amountPerPerson.currencyFormatted,
-            attributes: [.font: ThemeFont.bold(ofSize: 48)]
+            attributes: [
+                .font: ThemeFont.bold(ofSize: 48),
+                .foregroundColor: ThemeColor.text
+            ]
         )
         text.addAttributes([.font: ThemeFont.bold(ofSize: 24)], range: NSMakeRange(0, 1))
         amountPerPersonLabel.attributedText = text
