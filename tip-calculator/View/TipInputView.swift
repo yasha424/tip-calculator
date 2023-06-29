@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Combine
+import CombineCocoa
 
 class TipInputView: UIView {
     
@@ -53,6 +55,11 @@ class TipInputView: UIView {
             radius: 12.0,
             opacity: 0.1
         )
+        
+        button.tapPublisher.sink { [weak self] _ in
+            self?.handleCustomTipButton()
+        }.store(in: &cancellables)
+        
         return button
     }()
     
@@ -67,9 +74,16 @@ class TipInputView: UIView {
         return stackView
     }()
     
+    private let tipSubject: CurrentValueSubject<Tip, Never> = .init(.none)
+    var valuePublisher: AnyPublisher<Tip, Never> {
+        return tipSubject.eraseToAnyPublisher()
+    }
+    private var cancellables = Set<AnyCancellable>()
+    
     init() {
         super.init(frame: .zero)
         layout()
+        observe()
     }
     
     private func layout() {
@@ -89,6 +103,82 @@ class TipInputView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func handleCustomTipButton() {
+        
+        let alertController: UIAlertController = {
+            let controller = UIAlertController(
+                title: "Enter custom tip",
+                message: nil,
+                preferredStyle: .alert
+            )
+            controller.addTextField { textField in
+                textField.placeholder = "Make it generous!"
+                textField.keyboardType = .numberPad
+                textField.autocorrectionType = .no
+            }
+            let cancelAction = UIAlertAction(
+                title: "Cancel",
+                style: .cancel
+            )
+            let okAction = UIAlertAction(
+                title: "OK",
+                style: .default
+            ) { [weak self] _ in
+                guard let text = controller.textFields?.first?.text,
+                      let value = Int(text.replacingOccurrences(of: ",", with: ".")) else {
+                    return
+                }
+                
+                self?.tipSubject.send(.custom(value: value))
+            }
+            [okAction, cancelAction].forEach(controller.addAction)
+            return controller
+        }()
+        
+        parentViewController?.present(alertController, animated: true)
+        
+    }
+    
+    private func observe() {
+        tipSubject.sink { [weak self] tip in
+            self?.resetView()
+            switch tip {
+            case .none:
+                break
+            case .tenPercent:
+                self?.tenPercentTipButton.backgroundColor = ThemeColor.selected
+            case .fifteenPercent:
+                self?.fifteenPercentTipButton.backgroundColor = ThemeColor.selected
+            case .twentyPercent:
+                self?.twentyPercentTipButton.backgroundColor = ThemeColor.selected
+            case .custom(let value):
+                self?.customTipButton.backgroundColor = ThemeColor.selected
+                let text = NSMutableAttributedString(
+                    string: "$\(value)",
+                    attributes: [.font: ThemeFont.bold(ofSize: 20)]
+                )
+                text.addAttributes(
+                    [.font: ThemeFont.bold(ofSize: 14)],
+                    range: NSMakeRange(0, 1)
+                )
+                self?.customTipButton.setAttributedTitle(text, for: .normal)
+            }
+        }.store(in: &cancellables)
+    }
+    
+    private func resetView() {
+        [tenPercentTipButton,
+         fifteenPercentTipButton,
+         twentyPercentTipButton,
+         customTipButton].forEach {
+            $0.backgroundColor = ThemeColor.secondary
+        }
+        let text = NSMutableAttributedString(
+            string: "Custom tip",
+            attributes: [.font: ThemeFont.bold(ofSize: 20)])
+        customTipButton.setAttributedTitle(text, for: .normal)
     }
     
     private func buildTipButton(tip: Tip) -> UIButton {
@@ -113,6 +203,13 @@ class TipInputView: UIView {
             radius: 12.0,
             opacity: 0.1
         )
+        
+        button.tapPublisher.flatMap {
+            Just(tip)
+        }
+        .assign(to: \.value, on: tipSubject)
+        .store(in: &cancellables)
+
         return button
     }
     

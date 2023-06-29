@@ -13,4 +13,5 @@ struct ThemeColor {
     static let secondary = UIColor(hexString: "487147")
     static let text = UIColor(hexString: "FFFFFF")
     static let separator = UIColor(hexString: "CCCCCC")
+    static let selected = UIColor(hexString: "DD8F42")
 }

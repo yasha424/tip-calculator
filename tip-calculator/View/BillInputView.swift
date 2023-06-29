@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Combine
+import CombineCocoa
 
 class BillInputView: UIView {
     
@@ -35,7 +37,9 @@ class BillInputView: UIView {
         textField.tintColor = ThemeColor.text
         textField.textColor = ThemeColor.text
         
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 36))
+        let toolBar = UIToolbar(
+            frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 36)
+        )
         toolBar.barStyle = .default
         toolBar.sizeToFit()
         
@@ -60,9 +64,16 @@ class BillInputView: UIView {
         return textField
     }()
     
+    private let billSubject: PassthroughSubject<Double, Never> = .init()
+    var valuePublisher: AnyPublisher<Double, Never> {
+        return billSubject.eraseToAnyPublisher()
+    }
+    private var cancellabels = Set<AnyCancellable>()
+    
     init() {
         super.init(frame: .zero)
         layout()
+        observe()
     }
     
     private func layout() {
@@ -100,6 +111,13 @@ class BillInputView: UIView {
             radius: 12.0,
             opacity: 0.1
         )
+    }
+    
+    private func observe() {
+        textField.textPublisher.sink { [weak self] text in
+            self?.billSubject.send(text?.doubleValue ?? 0)
+//            print("Text: \(text)")
+        }.store(in: &cancellabels)
     }
     
     required init?(coder: NSCoder) {
