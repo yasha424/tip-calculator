@@ -44,9 +44,15 @@ class TipInputView: UIView {
         let button = UIButton()
         button.setTitle("Custom tip", for: .normal)
         button.titleLabel?.font = ThemeFont.bold(ofSize: 20)
-        button.backgroundColor = ThemeColor.primary
+        button.backgroundColor = ThemeColor.secondary
         button.tintColor = .white
         button.addCornerRadius(radius: 8.0)
+        button.addShadow(
+            offset: CGSize(width: 0, height: 3),
+            color: .black,
+            radius: 12.0,
+            opacity: 0.1
+        )
         return button
     }()
     
@@ -87,7 +93,7 @@ class TipInputView: UIView {
     
     private func buildTipButton(tip: Tip) -> UIButton {
         let button = UIButton(type: .custom)
-        button.backgroundColor = ThemeColor.primary
+        button.backgroundColor = ThemeColor.secondary
         button.tintColor = .white
         button.addCornerRadius(radius: 8.0)
         
@@ -101,6 +107,12 @@ class TipInputView: UIView {
         text.addAttributes([.font: ThemeFont.demiBold(ofSize: 14)], range: NSMakeRange(2, 1))
         
         button.setAttributedTitle(text, for: .normal)
+        button.addShadow(
+            offset: CGSize(width: 0, height: 3),
+            color: .black,
+            radius: 12.0,
+            opacity: 0.1
+        )
         return button
     }
     
