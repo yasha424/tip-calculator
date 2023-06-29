@@ -17,16 +17,19 @@ class TipInputView: UIView {
     
     private lazy var tenPercentTipButton: UIButton = {
         let button = buildTipButton(tip: .tenPercent)
+        button.accessibilityIdentifier = ScreenIdentifier.TipInputView.tenPercentButton.rawValue
         return button
     }()
 
     private lazy var fifteenPercentTipButton: UIButton = {
         let button = buildTipButton(tip: .fifteenPercent)
+        button.accessibilityIdentifier = ScreenIdentifier.TipInputView.fifteenPercentButton.rawValue
         return button
     }()
 
     private lazy var twentyPercentTipButton: UIButton = {
         let button = buildTipButton(tip: .twentyPercent)
+        button.accessibilityIdentifier = ScreenIdentifier.TipInputView.twentyPercentButton.rawValue
         return button
     }()
 
@@ -55,6 +58,7 @@ class TipInputView: UIView {
             radius: 12.0,
             opacity: 0.1
         )
+        button.accessibilityIdentifier = ScreenIdentifier.TipInputView.customTipButton.rawValue
         
         button.tapPublisher.sink { [weak self] _ in
             self?.handleCustomTipButton()
@@ -121,6 +125,8 @@ class TipInputView: UIView {
                 textField.placeholder = "Make it generous!"
                 textField.keyboardType = .numberPad
                 textField.autocorrectionType = .no
+                textField.accessibilityIdentifier =
+                    ScreenIdentifier.TipInputView.customTipAlertTextField.rawValue
             }
             let cancelAction = UIAlertAction(
                 title: "Cancel",
@@ -140,7 +146,7 @@ class TipInputView: UIView {
             [okAction, cancelAction].forEach(controller.addAction)
             return controller
         }()
-        
+                
         parentViewController?.present(alertController, animated: true)
         
     }

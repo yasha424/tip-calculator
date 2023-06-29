@@ -133,7 +133,7 @@ class CalculatorVC: UIViewController {
         }
 
         tipInputView.snp.makeConstraints { make in
-            make.height.equalTo(56 + 56 + 16)
+            make.height.equalTo(56+56+16)
         }
 
         splitInputView.snp.makeConstraints { make in

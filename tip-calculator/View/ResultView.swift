@@ -30,6 +30,9 @@ class ResultView: UIView {
         )
         
         label.attributedText = text
+        label.accessibilityIdentifier =
+            ScreenIdentifier.ResultView.totalAmountPerPersonValueLabel.rawValue
+        
         return label
     }()
     
@@ -53,11 +56,19 @@ class ResultView: UIView {
     }()
     
     private let totalBillView: AmountView = {
-        return AmountView(title: "Total bill", textAlignment: .left)
+        return AmountView(
+            title: "Total bill",
+            textAlignment: .left,
+            amountLabelIdentifier: ScreenIdentifier.ResultView.totalBillValueLabel.rawValue
+        )
     }()
 
     private let totalTipView: AmountView = {
-        return AmountView(title: "Total tip", textAlignment: .right)
+        return AmountView(
+            title: "Total tip",
+            textAlignment: .right,
+            amountLabelIdentifier: ScreenIdentifier.ResultView.totalTipValueLabel.rawValue
+        )
     }()
 
     private lazy var hStackView: UIStackView = {
@@ -78,7 +89,8 @@ class ResultView: UIView {
     
     func configure(result: Result) {
         let text = NSMutableAttributedString(
-            string: result.amountPerPerson.currencyFormatted,
+            string: result.amountPerPerson.currencyFormatted
+                .replacingOccurrences(of: ".", with: ","),
             attributes: [
                 .font: ThemeFont.bold(ofSize: 48),
                 .foregroundColor: ThemeColor.text
@@ -87,8 +99,10 @@ class ResultView: UIView {
         text.addAttributes([.font: ThemeFont.bold(ofSize: 24)], range: NSMakeRange(0, 1))
         amountPerPersonLabel.attributedText = text
         
-        totalBillView.configure(text: result.totalBill.currencyFormatted)
-        totalTipView.configure(text: result.totalTip.currencyFormatted)
+        totalBillView.configure(text: result.totalBill.currencyFormatted
+            .replacingOccurrences(of: ".", with: ","))
+        totalTipView.configure(text: result.totalTip.currencyFormatted
+            .replacingOccurrences(of: ".", with: ","))
     }
     
     private func layout() {
